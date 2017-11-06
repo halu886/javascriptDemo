@@ -1,0 +1,106 @@
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
+<!-- <html> -->
+<html>
+
+<head>
+    <title>Example XHTML pager</title>
+    <style>
+        div {
+            background-color: aliceblue;
+            width: 50px;
+            height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" name="" id="btn" value="click ME" onclick="">
+
+    <form action="">
+        <input type="text" name="username" id="" value="">
+        <input type="button" name="" id="" value="Echo UserName" onclick="alert(username.value)">
+    </form>
+</body>
+<script type="text/javascript">
+    /* var EventUtil = {
+                                                                                                                                                                                                                                                    addHandler: function (element, type, handler) {
+                                                                                                                                                                                                                                                        if (element.addEventListener) {
+                                                                                                                                                                                                                                                            element.addEventListener(type, handler, false);
+
+                                                                                                                                                                                                                                                        } else if (element.attachEvent) {
+                                                                                                                                                                                                                                                            element.attachEvent("on" + type, handler);
+                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                            element["on" + type] = handler;
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                    },
+                                                                                                                                                                                                                                                    removeHandelr: function (element, type, handler) {
+                                                                                                                                                                                                                                                        if (element.removeEventListener) {
+                                                                                                                                                                                                                                                            element.removeEventListener(type, handler, false);
+                                                                                                                                                                                                                                                        } else if (element.detachEvent) {
+                                                                                                                                                                                                                                                            element.detachEvent("on" + type, handler)
+                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                            element["on" + type] = null;
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                var btn = document.getElementById('btn');
+                                                                                                                                                                                                                                                var handler = function () {
+                                                                                                                                                                                                                                                    alert("Clicked");
+                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                EventUtil.addHandler(btn, "click", handler);
+
+                                                                                                                                                                                                                                                // EventUtil.removeHandelr()*/
+
+    var btn = document.getElementById('btn');
+
+    // btn.onclick = function (event) {
+    //     // alert(event.type);
+    //     alert(event.currentTarget === this);
+    //     alert(event.target === this);
+    // }
+
+    // document.body.onclick = function (event) {
+    //     // debugger
+    //     alert(event.currentTarget === document.body);
+    //     alert(this === document.body);
+    //     alert(event.target === document.getElementById('btn'));
+    // }
+
+    // btn.addEventListener("click", function (event) {
+    //     alert(event.type);
+    // }, false);
+
+    // 通过一个处理器处理多个事件
+    // var handler = function (event) {
+    //     // debugger;
+    //     event.preventDefault();
+    //     switch (event.type) {
+    //         case "click":
+    //             alert("Clicked");
+    //             break;
+    //         case "mouseover":
+    //             event.target.style.backgroundColor = "red";
+    //             break;
+    //         case "mouseout":
+    //             event.target.style.backgroundColor = "";
+    //             break;
+    //     }
+    // }
+
+    // btn.onclick = handler;
+    // btn.onmouseover = handler;
+    // btn.onmouseout = handler;
+    btn.onclick = function (event) {
+        alert(event.eventPhase);
+    }
+    document.body.addEventListener('click', function (event) {
+        alert(event.eventPhase);
+    }, true);
+
+    document.body.onclick = function (event) {
+        alert(event.eventPhase);
+    }
+</script>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE>
+<script>
+    // callee可以打印其本身
+    function calleeDemo() {
+        alert(arguments.callee);
+    }
+
+    // calleeDemo();
+
+    // 用于验证参数
+    function calleeLengthDemo(arg1, arg2) {
+        if (arguments.length == arguments.callee.length) {
+            window.alert("验证形参和实参长度相同");
+            return
+        } else {
+            alert(arguments.length + "\n" + arguments.callee.length);
+        }
+    }
+
+    // calleeLengthDemo(21)
+
+
+
+    var sum = function (n) {
+        if (n < 0)
+            return 1;
+        else return n + arguments.callee(n - 1);
+    }
+
+    alert(sum(5));
+
+</script>

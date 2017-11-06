@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>demo</title>
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="divId">asdfasdf</div>
+    <script>
+        /**
+        // 内存泄漏
+        // ·
+        function handler(){
+            var div = document.getElementById("divId");
+            var id = div.id
+            div.onclick = function(){
+                console.log(id);
+            }
+            div = null;
+        }
+        handler();*/
+        /*
+                function outputNumber() {
+                    (function () {
+        
+                        for (var i = 0; i < 10; i++) {
+                            console.log(i);
+                        }
+                    })
+        
+                    // var i;
+                    console.log(i);
+                }
+                // var i;
+                
+                outputNumber()*/
+        /*(function(){
+            var date =  new Date;
+            if(date.getMonth() == 0&& date.getDate()==1){
+                console.log('asdfasdf');
+            }
+        })();*/
+        /*
+                function MyObject(){
+                    var privateVariable = 10;
+                    var privateFunction = function(){
+                        return false;
+                    }
+                    this.publictFunction = function(){
+                        privateVariable++;
+                        return privateFunction();
+                    }
+                }*/
+
+        /*
+                function Person(name){
+                    this.getName = function(){
+                        // ertur
+                        return name;
+                    }
+                    this.setName = function(value){
+                        // return 
+                        name = value;
+                    }
+                }
+        
+                var person = new Person("halu");
+                // var
+                console.log(person.getName());
+                person.setName('test');
+                console.log(person.getName());*/
+        /*
+                // 静态私有变量
+        
+                Person = (function ($,window,document) {
+                    var name = 'test';
+                     
+                     p = {
+                        // name:'',
+                        age:'',
+                        setName:function(){},
+                        getName:function(){
+                            return name;
+                        }
+                    };
+                    p1={
+        
+                    }
+                    
+                    return {p,p1};
+                })($,window,);
+                
+                //var person = new Person('stetr');
+                //debugger
+                console.log(Person.getName());
+        
+                // person.setName('halu');
+        
+                // console.log(person.getName());
+        
+                // var test = new Person('test');
+        
+                // console.log(person.getName());*/
+
+        /*
+                //this
+                var x = 1;
+        
+                var f = function(){
+                    console.log(this.x);
+                }
+        
+                f();
+        
+                var ff = function(){
+                    this.x = 2;
+                    console.log(this.x)
+                }
+        
+                ff();
+                x;
+        
+                var o = {x:"o'sx",f:f};
+        
+                o.f();  */
+
+        /*
+                //scope chain
+                var x = 'global'
+        
+                function a(){
+                    var x = 'a`s x';
+                    function b(){
+                        var y = 'b`s y'
+                        console.log(x);
+                    }
+                    b();
+                }
+                function c(){
+                    var x = 'x`s c'
+                    function d(){
+                        console.log(x);
+                    }
+                    d();
+                }
+                a();
+                c();
+                console.log(x);
+                console.log(y);*/
+
+        /*
+                // closure
+                var x = 100;
+                // function 
+                var inc = function(){
+                    // console.log()
+                    var x = 0;
+                    return function(){
+                        console.log(x++);
+                    }
+                }
+                var inc1 = inc()
+                 
+                var inc2 = inc();
+        
+                inc1();
+                inc1();
+                inc2();
+                inc1();
+                inc2();
+                console.log(x);
+        */
+
+        /*       // this in closure
+               // var name = 'global';
+               var o = {
+                   name: 'o',
+                   getName: function () {
+                       var test=123;
+                       return function () {
+                           return name;
+                       }
+                   }
+               }
+               console.log(o.getName()());
+               
+               var ooo = {
+                   name:'ooo',
+                   getName:o.getName(),
+               }
+       
+               console.log(ooo.getName());
+       
+               //防止闭包被替换
+               var oooo ={
+                   name:'ox4',
+                   getName:function(){
+                       var self = this;    
+                       return function(){
+                           return self.name;
+                       }
+                   }
+               }
+               console.log(oooo.getName()());
+       
+               console.log(ooo.getName.bind(ooo)());*/
+        /*
+                var x = 10;
+                
+                function foo(){
+                    var y = 20;
+                    function bar(){
+                        // alert()
+                        console.log(x+y);
+                    }
+                    return bar;
+                }
+        
+                foo()();*/
+        /*
+        //函数创建
+        var x = 10;
+
+        function foo(){
+            var y = 20;
+            // alter()
+            console.log(x + y);
+        } 
+        foo();
+        */
+
+        /*
+                // 函数激活
+        
+                var x = 10;
+                function foo(){
+                    var y = 20;
+                    function bar(){
+                        var z = 30;
+                        console.log(x+y+z);
+                    }
+                    bar();
+                }
+                foo();*/
+
+        /*
+                // 闭包
+                var x = 10;
+        
+                function  foo(){
+                    console.log(x);
+                }
+        
+                (function(){
+                    var x = 20;
+                    foo();
+                })();*/
+
+        /*
+                // 通过构造函数创建的函数的[[scope]]
+                var x = 10;
+                function foo() {
+                    var y = 20;
+        
+                    function barFD() {//函数声明
+                        // alert
+                        console.log(x);
+                        console.log(y);
+                    }
+        
+                    var barEF = function () {//函数与表达式
+                        // alt
+                        console.log(x);
+                        console.log(y);
+        
+                    }
+        
+                    var barFn = Function('console.log(x);console.log(y);');
+        
+                    barFD();
+                    barEF();
+                    barFn();
+                }
+                foo();*/
+
+        // 单例模式
+        var singleton = {
+            name: value,
+            method: function () {
+
+            }
+        }
+
+        var singleton = function () {
+            // 私有变量和私有函数
+            var privateVariable = 10;
+
+            function privateFunction() {
+                return false;
+            }
+
+            // 特权和共有方法
+            return {
+                publicProperty: true,
+                publicMethod: function () {
+                    privateVariable++;
+                    return privateFunction();
+                }
+            }
+        }
+        /*
+                var application = function () {
+                    // 私有变量和函数
+                    var components = new Array();
+        
+                    // 初始化
+                    components.push(new BaseComponent());
+        
+                    // 公共
+                    return {
+                        getComponentCount: function () {
+                            return components.length;
+                        },
+                        registerComponent: function (component) {
+                            if (typeof component == 'object') {
+                                components.push(component);
+                            }
+                        }
+                    }
+                }*/
+
+
+        // 增强的模块模式
+        var application = function () {
+
+            // 私有变量和函数
+            var components = new Array();
+
+            // 初始化
+            components.push(new BaseComponent());
+
+            var object = new CustomType();
+
+            // object.getComponentCount = 
+            object.publicProperty = true;
+
+            object.publicMethod = function () {
+                private
+            }
+
+            // 公共
+            return {
+                getComponentCount: function () {
+                    return components.length;
+                },
+                registerComponent: function (component) {
+                    if (typeof component == 'object') {
+                        components.push(component);
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>事件脚本</title>
+    <style>
+        * {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="myDiv" style="background-color:aqua;width:500px;height:500px">
+
+    </div>
+    <ul>
+        <li>asdfadf</li>
+    </ul>
+
+    <textarea id="myText" rows="" cols=""></textarea>
+    <!-- <button type="text"></button> -->
+    <ul id="myList">
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+    </ul>
+</body>
+
+<script>
+    var EventUtil = {
+        addHandler: function (element, type, handler) {
+            if (element.addEventListener) {
+                element.addEventListener(type, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = handler;
+            }
+        },
+        removeHandler: function (element, type, handler) {
+            if (element.removeEventListener) {
+                element.removeEventListener(type, handler, false);
+            } else if (element.detachEvent) {
+                element.detachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = null;
+            }
+        },
+        getEvent: function (event) {
+            return event ? event : window.event;
+        },
+        getTarget: function (event) {
+            return event.target || event.srcElement;
+        },
+        preventDefault: function (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
+        },
+        stopPropagation: function (event) {
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            } else {
+                event.cancelBubble = true;
+            }
+        },
+        getRelatedTarget: function (event) {
+            if (event.relatedTarget) {
+                return event.relatedTarget;
+            } else if (event.toElement) {
+                return event.toElement
+            } else if (event.fromElement) {
+                return event.fromElement;
+            } else {
+                return null;
+            }
+        },
+        getButton: function (event) {
+            if (document.implementation.hasFeature('MouseEvents', "2.0")) {
+                return event.button;
+            } else {
+                switch (event.button) {
+                    case 0:
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                        return 0;
+                    case 2:
+                    case 6:
+                        return 2;
+                    case 4:
+                        return 1;
+                }
+            }
+        },
+        getWheelDelta: function (event) {
+            if (event.wheelDelta) {
+                return (client.engine.opera && client.engine.opera < 9.5 ?
+                    -event.wheelDelta : event.wheelDelta);
+            } else {
+                return -event.detail * 40;
+            }
+        },
+        getCharCode: function (event) {
+            if (typeof event.charCode == "number") {
+                return event.charCode;
+            } else {
+                return event.keyCode;
+            }
+        }
+    };
+
+    //resizeExample.htm
+    // EventUtil.addHandler(window, 'resize', function (event) {
+    //     alert('Resized')
+    // })
+
+    // //scrollExample.htm
+    // EventUtil.addHandler(window, "scroll", function (event) {
+    //     if (document.compatMode == "CSS1Compat") {
+    //         alert(document.documentElement.scrollTop);
+    //     } else {
+    //         alert(document.body.scrollTop)
+    //     }
+    // })
+
+
+    // //ClientCoordinatesExample01.htm
+    // var div = document.getElementById("myDiv");
+    // EventUtil.addHandler(div, 'click', function (event) {
+    //     var event = EventUtil.getEvent(event);
+    //     alert(event.clientX + ',' + event.clientY);
+    //     // ModifierKeysExample01.htm
+    //     var keys = new Array();
+    //     if (event.shiftKey) {
+    //         keys.push('shift');
+    //     }
+    //     if (event.ctrlKey) {
+    //         keys.push('ctrl');
+    //     }
+    //     if (event.altKey) {
+    //         keys.push('alt');
+    //     }
+    //     if (event.metaKey) {
+    //         keys.push('meta');
+    //     }
+    //     alert(keys.join(','));
+    // })
+
+    // // RelatedEventExample.htm
+    // var div = document.getElementById('myDiv');
+    // EventUtil.addHandler(div, 'mouseout', function (event) {
+    //     // var event 
+
+    //     var target = EventUtil.getTarget(event);
+    //     // var relatedTarget = EventUtil.getTarget(event);
+    //     var relatedTarget = EventUtil.getRelatedTarget(event);
+    //     alert(target.tagName + "+++" + relatedTarget.tagName);
+    // });
+
+    var div = document.getElementById('myDiv');
+
+
+    // //buttonExample01.html
+    // EventUtil.addHandler(div, "mousedown", function (event) {
+    //     event = EventUtil.getEvent(event);
+    //     alert(EventUtil.getButton(event));
+    // })
+
+    // // MouseWheelEventExample01.htm
+    // EventUtil.addHandler(div, "mousewheel", function (event) {
+    //     event = EventUtil.getEvent(event);
+    //     var delta = (client.engine.opera && clent.engine.opera < 9.5 ? -event.wheelDelta : event.wheelDelta)
+    //     alert(delta);
+    // })
+
+    // //DOMMouseScrollEventExample01.htm
+    // EventUtil.addHandler(window, "DomMouseScroll", function (event) {
+    //     event = EventUtil.getEvent(event);
+    //     alert(event.detail);
+    // })
+
+    // // CrossBrowserMouseWheelExample01.htm
+    // (function () {
+    //     function handleMouseWheel(event) {
+    //         event = EventUtil.getEvent(event);
+    //         var delta = EventUtil.getWheelDelta(event);
+    //         alert(delta);
+    //     }
+    //     EventUtil.addHandler(document, 'mousewheel', handleMouseWheel);
+    //     EventUtil.addHandler(document, 'DOMMouseScroll', handleMouseWheel);
+    // })
+
+    // //KeyUpEventExample01.html
+    // var textbox = document.getElementById("myText");
+    // EventUtil.addHandler(textbox, "keyup", function (event) {
+    //     event = EventUtil.getEvent(event);
+    //     alert(event.keyCode);
+    // });
+
+    // // KeyPressEventExample01.htm
+    // var textbox = document.getElementById("myText");
+    // EventUtil.addHandler(textbox, "keypress", function (event) {
+    //     event = EventUtil.getEvent(event);
+    //     alert(EventUtil.getCharCode(event));
+    // })
+
+    // // DOMLevel3LocationPropertyExample01.htm
+    // var textbox = document.getElementById("myText");
+    // EventUtil.addHandler(textbox, "keypress", function (event) {
+    //     event = EventUtil.getEvent(event);
+    //     var loc = event.location || event.keyLocation;
+    //     if (loc) {
+    //         alert(loc);
+    //     }
+    // })
+
+    // // TextInputEventExample01.htm
+    // var textbox = document.getElementById('myText');
+    // EventUtil.addHandler(textbox, 'textInput', function (event) {
+    //     event = EventUtil.getEvent(event);
+    //     alert(event.data);
+    // })
+
+    // //CompositionEventExample01.htm
+    // var textbox = document.getElementById('myText');
+    // EventUtil.addHandler(textbox, 'compositionstart', function (event) {
+    //     event = EventUtil.getEvent(event);
+    //     alert(event.data);
+    // })
+
+    // console.log(document.implementation.hasFeature("CompositionEvent", "3.0"));
+
+    // console.log(document.implementation.hasFeature('MutationEvents', "2.0"));
+
+    // EventUtil.addHandler(window, 'load', function (event) {
+    //     var list = document.getElementById('myList');
+
+    //     EventUtil.addHandler(document, "DOMSubtreeModified", function (event) {
+    //         alert(event.type + '\n' + event.target);
+    //     });
+    //     EventUtil.addHandler(document, "DOMNodeRemoved", function (event) {
+    //         alert(event.type + '\n' + event.target + '\n' + event.relatedNode);
+    //     })
+    //     EventUtil.addHandler(list.firstChild, "DOMNodeRemovedFromDocument", function (event) {
+    //         alert(event.type + '\n' + event.target);
+    //     })
+    //     list.parentNode.removeChild(list);
+    // })
+
+    EventUtil.addHandler(window, 'load', function (event) {
+        var list = document.getElementById('myList');
+        var item = document.createElement('li');
+        item.appendChild(document.createTextNode("Item 4"));
+        EventUtil.addHandler(document, "DOMSubTreeModified", function (event) {
+            alert(event.target + '\n' + event.target);
+        })
+
+        EventUtil.addHandler(document, "DOMNodeInserted", function (event) {
+            alert(event.type + "\n" + event.target + event.relatedNode);
+        })
+
+        EventUtil.addHandler(item, "DOMNodeInsertedIntoDocument", function (event) {
+            alert(event.type + "\n" + event.target);
+        })
+
+        list.appendChild(item);
+    })
+
+</script>
+
+</html>

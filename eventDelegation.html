@@ -1,0 +1,200 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EventDelegation</title>
+</head>
+
+<body>
+    <ul id="myList">
+        <li id="goSomewhere">go somewhere</li>
+        <li id="doSomething">do Something</li>
+        <li id="sayHi">Say Hi</li>
+    </ul>
+    <div id="myDiv">
+        <input type="button" value="Click Me" id="myBtn">
+        <input type="text" name="" id="myTextbox">
+    </div>
+</body>
+
+<script>
+    var item1 = document.getElementById('goSomewhere');
+    var item2 = document.getElementById('doSomething');
+    var item3 = document.getElementById('sayHi');
+    var list = document.getElementById('myList');
+    var btn = document.getElementById("myBtn");
+
+    btn.onclick = function () {
+
+        btn.onclick = null;
+        document.getElementById("myDiv").innerHTML = "Processing...";
+    }
+
+
+    var EventUtil = {
+        addHandler: function (element, type, handler) {
+            if (element.addEventListener) {
+                element.addEventListener(type, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = handler;
+            }
+        },
+        removeHandler: function (element, type, handler) {
+            if (element.removeEventListener) {
+                element.removeEventListener(type, handler, false);
+            } else if (element.detachEvent) {
+                element.detachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = null;
+            }
+        },
+        getEvent: function (event) {
+            return event ? event : window.event;
+        },
+        getTarget: function (event) {
+            return event.target || event.srcElement;
+        },
+        preventDefault: function (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
+        },
+        stopPropagation: function (event) {
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            } else {
+                event.cancelBubble = true;
+            }
+        },
+        getRelatedTarget: function (event) {
+            if (event.relatedTarget) {
+                return event.relatedTarget;
+            } else if (event.toElement) {
+                return event.toElement
+            } else if (event.fromElement) {
+                return event.fromElement;
+            } else {
+                return null;
+            }
+        },
+        getButton: function (event) {
+            if (document.implementation.hasFeature('MouseEvents', "2.0")) {
+                return event.button;
+            } else {
+                switch (event.button) {
+                    case 0:
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                        return 0;
+                    case 2:
+                    case 6:
+                        return 2;
+                    case 4:
+                        return 1;
+                }
+            }
+        },
+        getWheelDelta: function (event) {
+            if (event.wheelDelta) {
+                return (client.engine.opera && client.engine.opera < 9.5 ?
+                    -event.wheelDelta : event.wheelDelta);
+            } else {
+                return -event.detail * 40;
+            }
+        },
+        getCharCode: function (event) {
+            if (typeof event.charCode == "number") {
+                return event.charCode;
+            } else {
+                return event.keyCode;
+            }
+        }
+    };
+
+    // EventUtil.addHandler(item1, "click", function (event) {
+    //     location.href = "baidu.com";
+    // })
+
+    // EventUtil.addHandler(item2, "click", function (event) {
+    //     document.title = "Change Title";
+    // })
+
+    // EventUtil.addHandler(item3, "click", function (event) {
+    //     alert("hi");
+    // });
+
+    EventUtil.addHandler(list, "click", function (event) {
+        event = EventUtil.getEvent(event);
+        var target = EventUtil.getTarget(event);
+        switch (target.id) {
+            case "doSomething":
+                location.href = "baidu.com";
+                break;
+            case "goSomewhere":
+                document.title = "Change Title";
+                break;
+            case "sayHi":
+                alert("hi");
+                break;
+
+        }
+    })
+
+    // //SimulateDOMClickExample01.htm
+    // var event = document.createEvent("MouseEvents");
+    // event.initMouseEvent("click", true, true, document.defaultView, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    // btn.dispatchEvent(event);
+
+    // //SimulateDOMKeyEventExample01.htm
+    // var textbox = document.getElementById("myTextbox");
+    // var event;
+
+    // //以DOM3级方式创建事件对象
+    // if (document.implementation.hasFeature("KeyboardEvents", "3.0")) {
+    //     event = document.createEvent("KeyboardEvent");
+
+    //     //初始化事件对象
+    //     event.initKeyboardEvent("keydown", true, true, document.defaultView, ":", 0, "Shift", 0);
+    // }
+    // //触发事件
+    // textbox.dispatchEvent(event)
+
+    var div = document.getElementById('myDiv');
+    var event;
+
+    EventUtil.addHandler(div, "myevent", function (event) {
+        alert("div:" + event.detail);
+    });
+
+    EventUtil.addHandler(document, "myevent", function (event) {
+        alert("DOCUMENT", event.detail);
+    })
+
+    // if (document.implementation.hasFeature("CustomEvents", "3.0")) {
+    //     event = document.createEvent("CustomEvent");
+    //     event.initCustomEvent("myevent", true, false, "hello World!");
+    //     div.dispatchEvent(event);
+    // }
+
+    var textbox = document.getElementById('myTextbox');
+
+    var event = document.createEventObject();
+
+    event.altKey = false;
+    event.ctrlKey = false;
+    event.shiftKey = false;
+    event.keyCode = 65
+
+    textbox.fireEvent("onkeypress", event);
+
+</script>
+
+</html>

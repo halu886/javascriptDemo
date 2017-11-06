@@ -1,0 +1,144 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <iframe name="richedit" style="height:100px;width:100px" src="blank.html" frameborder="0"></iframe> -->
+
+    <form action="" id="form">
+        <div class="editable" id="richedit" contenteditable></div>
+    </form>
+    <script type="text/javascript">
+        var EventUtil = {
+            addHandler: function (element, type, handler) {
+                if (element.addEventListener) {
+                    element.addEventListener(type, handler, false);
+                } else if (element.attachEvent) {
+                    element.attachEvent("on" + type, handler);
+                } else {
+                    element["on" + type] = handler;
+                }
+            },
+            removeHandler: function (element, type, handler) {
+                if (element.removeEventListener) {
+                    element.removeEventListener(type, handler, false);
+                } else if (element.detachEvent) {
+                    element.detachEvent("on" + type, handler);
+                } else {
+                    element["on" + type] = null;
+                }
+            },
+            getEvent: function (event) {
+                return event ? event : window.event;
+            },
+            getTarget: function (event) {
+                return event.target || event.srcElement;
+            },
+            preventDefault: function (event) {
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            },
+            stopPropagation: function (event) {
+                if (event.stopPropagation) {
+                    event.stopPropagation();
+                } else {
+                    event.cancelBubble = true;
+                }
+            },
+            getRelatedTarget: function (event) {
+                if (event.relatedTarget) {
+                    return event.relatedTarget;
+                } else if (event.toElement) {
+                    return event.toElement
+                } else if (event.fromElement) {
+                    return event.fromElement;
+                } else {
+                    return null;
+                }
+            },
+            getButton: function (event) {
+                if (document.implementation.hasFeature('MouseEvents', "2.0")) {
+                    return event.button;
+                } else {
+                    switch (event.button) {
+                        case 0:
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                            return 0;
+                        case 2:
+                        case 6:
+                            return 2;
+                        case 4:
+                            return 1;
+                    }
+                }
+            },
+            getWheelDelta: function (event) {
+                if (event.wheelDelta) {
+                    return (client.engine.opera && client.engine.opera < 9.5 ?
+                        -event.wheelDelta : event.wheelDelta);
+                } else {
+                    return -event.detail * 40;
+                }
+            },
+            getCharCode: function (event) {
+                if (typeof event.charCode == "number") {
+                    return event.charCode;
+                } else {
+                    return event.keyCode;
+                }
+            }
+        };
+
+
+
+        EventUtil.addHandler(window, "load", function () {
+            // frames['richedit'].document.designMode = "on"
+            // frames['richedit'].document.execCommand("bold", false, null);
+            // frames['richedit'].document.execCommand("italic", false, null);
+            // frames['richedit'].document.execCommand('createlink', false, "http://www.baidu.com");
+            // frames['richedit'].document.execCommand("formatblock", false, "<h1>");
+
+            // document.execCommand('fontname', false, sFontName)
+            // document.execCommand('fontsize', false, sFontSize)
+            // document.execCommand('forecolor', false, sFontColor)
+            // document.execCommand('backColor', false, sBackColor)
+
+            // var selectedText = window.getSelection();
+
+            // var range = selectedText.getRangeAt(0);
+
+            // var span = frames['richedit'].document.createElement("span");
+
+            // span.style.backgroundColor = "yellow";
+            // range.surroundContents(span);
+
+            // document.getElementById('richedit').contentEditable = "true"
+            // frames["richedit"].document.designMode = "on";
+        })
+
+
+        // var form = document.getElementById("form");
+        // EventUtil.addHandler(form, "submit", function (event) {
+        //     event = EventUtil.getEvent(event);
+        //     var target = EventUtil.getTarget(event);
+
+        //     target.element['comments'].value = frames['richedit'].document.body.innerHtml;
+        // })
+
+        // document.getElementById("richedit").innerHTML
+
+    </script>
+</body>
+
+</html>
