@@ -187,23 +187,103 @@
         // context.fillStyle = gradient;
         // context.fillRect(30, 30, 50, 50);   
 
-        var image = document.images[0];
-        var pattern = context.createPattern(image, "repeat");
+        // var image = document.images[0];
+        // var pattern = context.createPattern(image, "repeat");
 
-        // // 绘制矩形
-        // context.fillStyle = image;
-        // context.fillRect(10, 10, 150, 150);
-        // var red  = image.
-        var data = image.data;
-        var red = data[0];
-        var green = data[1];
-        var blue = data[2];
-        var alpha = data[3];
+        // // // 绘制矩形
+        // // context.fillStyle = image;
+        // // context.fillRect(10, 10, 150, 150);
+        // // var red  = image.
+        // var data = image.data;
+        // var red = data[0];
+        // var green = data[1];
+        // var blue = data[2];
+        // var alpha = data[3];
 
-        // 2DImageDataExample01.htm
-        context.drawImage(image, 0, 0);
+        // // 2DImageDataExample01.htm
+        // context.drawImage(image, 0, 0);
 
-        imageData = context.getImageData(0, 0, image.width, image.height);
+        // // imageData = context.getImageData(0, 0, image.width, image.height);
+        // var image = document.images[0];
+        // var imageData = document.images[0];
+        // var imageData, data, i, len, average, red, green, blue, alpha;
+        // context.drawImage(image, 0, 0);
+        // imageData = context.getImageData(0, 0, image.width, image.height);
+        // data = imageData.data;
+
+
+        // // 2DGlobalAlphaExample01.htm
+        // // 合成
+        // // 绘制红色矩形
+        // context.fillStyle = "#ff0000";
+        // context.fillRect(10, 10, 50, 50);
+        // // 修改全局透明度
+        // context.globalAlpha = 0.5;
+        // // 绘制蓝色矩形
+        // context.fillStyle = "rgba(0,0,255,1)";
+        // context.fillRect(30, 30, 50, 50);
+        // // 重置全局透明度
+        // context.globalAlpha = 0;
+
+        // // 2DGlobalCompositeOperationExample01.htm
+        // // 绘制红色矩形
+        // context.fillStyle = "#ff0000";
+        // context.fillRect(10, 10, 50, 50);
+        // // 设置合成操作
+        // context.globalCompositOperation = "destination-over";
+        // // 绘制蓝色矩形
+        // context.fillStyle = "rgba(0,0,255,1)";
+        // context.fillRect(30, 30, 50, 50);
+
+        // // 视图
+        // var buffer = new ArrayBuffer(20);
+
+        // var bytes = buffer.byteLength;
+        // console.log(buffer, bytes)
+
+        // // 基于整个缓冲器创建一个新视图
+        // var view = new DataView(buffer);
+
+        // // 创建一个开始于字节9的新视图
+        // var view = new DataView(buffer, 9)
+
+        // // 创建一个从字节9开始到字节18的新视图
+        // var veiw = new DataView(buffer, 9, 10);
+
+        // console.log(view.byteOffset, view.byteLength);
+
+        // // DataViewExample01.htm
+        // var buffer = new ArrayBuffer(20);
+        // var view = new DataView(buffer);
+        // var value;
+        // view.setUint16(0, 25);
+        // // 不能从字节1开始，因为16位整数要用2B
+        // view.setUint16(2, 50);
+        // value = view.getUint16(0);
+        // console.log(view, value)
+
+        // // DataViewExample02.htm
+        // var buffer = new ArrayBuffer(20);
+        // var view = new DataView(buffer);
+        // var value;
+        // view.setUint16(0, 25);
+        // value = view.getInt8(0);
+
+        // console.log(value);
+
+        // 类型化数组
+        var buffer = new ArrayBuffer(20);
+        // 创建一个新数组，使用整个缓冲区
+        var int8s = new Int8Array(buffer);
+        // 只使用从字节9开始的缓冲区
+        var int16s = new Int16Array(buffer, 9);
+        // 只使用从字节9到字节18的缓冲区
+        var uint16s = new Unit16Array(buffer, 9, 10);
+
+        // 使用缓冲区的一部分保存8位整数,另一部分保存16位整数
+        var int8s = new Int8Array(buffer, 0, 10);
+        var uint16s = new Unit16Array(buffer, 11, 10);
+
     }
 </script>
 
