@@ -271,19 +271,43 @@
 
         // console.log(value);
 
-        // 类型化数组
+        // // 类型化数组
         var buffer = new ArrayBuffer(20);
-        // 创建一个新数组，使用整个缓冲区
-        var int8s = new Int8Array(buffer);
-        // 只使用从字节9开始的缓冲区
-        var int16s = new Int16Array(buffer, 9);
-        // 只使用从字节9到字节18的缓冲区
-        var uint16s = new Unit16Array(buffer, 9, 10);
+        // // 创建一个新数组，使用整个缓冲区
+        // var int8s = new Int8Array(buffer);
+        // // 只使用从字节9开始的缓冲区
+        // var int16s = new Int16Array(buffer, 9);
+        // // 只使用从字节9到字节18的缓冲区
+        // var uint16s = new Unit16Array(buffer, 9, 10);
 
-        // 使用缓冲区的一部分保存8位整数,另一部分保存16位整数
-        var int8s = new Int8Array(buffer, 0, 10);
-        var uint16s = new Unit16Array(buffer, 11, 10);
+        // // 使用缓冲区的一部分保存8位整数,另一部分保存16位整数
+        // var int8s = new Int8Array(buffer, 0, 10);
+        // var uint16s = new Unit16Array(buffer, 11, 10);
 
+        // // 需要10个元素空间
+        // var int8s = new Int8Array(buffer, 0, 10 * Int8Array.BYTES_PER_ELEMENT);
+        // console.log(int8s.byteOffset, int8s.byteLength)
+        // // 需要5个元素空间
+        // // var uint16s = new Int16Array(buffer, int8s.byteOffset + int8s.byteLength, 5 * U.BYTES_PER_ELEMENT);
+        // // 创建一个数组保存10个8位整数（10字节）
+        // var int8s = new Int8Array(10);
+        // // 创建一个数组保存10个16位整数（20字节）
+        // var int16s = new Int16Array(10)
+        // // 创建一个数组保存5个8位整数(10字节)
+        // var int8s = new Int8Array([10, 20, 30, 40, 50])
+        // for (var i = 0, len = int8s.length; i < len; i++) {
+        //     console.log("value as position " + i + " is " + int8s[i]);
+        // }
+        // var uint16s = new Uint16Array(10);
+        // uint16s[0] = 65537;
+        // console.log(uint16s[0])
+
+        // sub = uint16s.subarray(2, 5);
+        // console.log(sub)
+
+        // WebGLExample01.htm
+        var g1 = drawing.getContext('experimental-webgl');
+        console.log(g1)
     }
 </script>
 
