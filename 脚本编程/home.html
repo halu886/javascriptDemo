@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>跨文档消息传输示例</title>
+    <script src="EventUtil.js"></script>
+</head>
+
+<body>
+    <iframe src="myframe.html" width="400" height="400" onload="sendMsg();" id="iframe"></iframe>
+    <div id="div1">
+    </div>
+    <script type="text/javascript">
+        EventUtil.addHandler(window, "message", function (event) {
+            document.getElementById('div1').innerHTML = '从event.origin=' + event.origin + ',那里来的消息event.data=' + event.data;
+        });
+        //向id为iframe内嵌框架中发送一条消息
+        function sendMsg() {
+            //获取框架中的window
+            var iframeWindow = document.getElementById("iframe").contentWindow;
+            var information = { "张三": 10, "李四": 20, "王五": 30, "小明": 40, "小白": 50, "老五": 60, "老周": 67 };
+            var jsontext = JSON.stringify(information);
+            setTimeout(function () {
+                //iframe窗口加载完成，使用postMessage向iframe内发送消息
+                //第一个参数为：消息内容
+                //第二个参数为：接收消息的对象窗口url,一般与iframe的src一致
+                iframeWindow.postMessage(jsontext, " file:///D:/halu/VSCode/projects/JavaScriptDemo/msg.html");
+            }, 2000);
+        }
+        var iframeWindow = document.getElementById('myframe').contentWindow;
+        iframeWindow.postMessage('a secret', 'file:///d:/halu/VSCode/projects/JavaScriptDemo/脚本编程/myframe.html');
+    </script>
+</body>
+
+</html>
