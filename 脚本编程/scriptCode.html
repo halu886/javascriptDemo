@@ -6,16 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="EventUtil.js"></script>
 </head>
 
 <body>
-    <iframe src="myframe.html" width="400px" height="400px" onload="sendMsg();" id="myframe" frameborder="0"></iframe>
+    <video src="/test.mpg" id="myVideo">Video player not available</video>
+    <img src="baidu.png" draggable="false" alt="">
+    <div id="droptarget">asdfasdfasdf</div>
+    <video src="myVideo" width="500px">
+        <source src="../testWebm.webm" type="video/webm;codecs = 'vp8,vorbis'">
+    </video>
+    <!-- <iframe src="myframe.html" width="400px" height="400px" onload="sendMsg();" id="myframe" frameborder="0"></iframe> -->
     <script>
-        function sendMsg() {
-            // debugger
-            var iframeWindow = document.getElementById('myframe').contentWindow;
-            iframeWindow.postMessage('a secret', 'file:///d:/halu/VSCode/projects/JavaScriptDemo/脚本编程/myframe.html');
-        }
+        // function sendMsg() {
+        //     // debugger
+        //     var iframeWindow = document.getElementById('myframe').contentWindow;
+        //     iframeWindow.postMessage('a secret', 'file:///d:/halu/VSCode/projects/JavaScriptDemo/脚本编程/myframe.html');
+        // }
+
+        // var droptarget = document.getElementById('droptarget');
+
+        // EventUtil.addHandler(droptarget, "dragover", function (event) {
+        //     EventUtil.preventDefault(event);
+        // })
+        // EventUtil.addHandler(droptarget, "dragenter", function (event) {
+        //     EventUtil.preventDefault(event);
+        // })
+        // EventUtil.addHandler(droptarget, "drop", function (event) {
+        //     EventUtil.preventDefault(event)
+        // })
+
+        // // 设置和接收文本数据
+        // event.dataTransfer.setData("text", "some text");
+        // var text = event.dataTransfer.getData('text');
+
+        // // 设置和接收URL
+        // event.dataTransfer.setData("URL", "http://www.wrox.com/");
+        // var url = event.dataTransfer.getData('URL')
+
+        // // DataTransferExample01.html
+        // var dataTransfer = event.dataTransfer;
+
+        // // 读取URl
+        // var url = dataTransfer.getData("url") || dataTransfer.getData('text/uri-list');
+
+        // // 读取文本
+        // var text = dataTransfer.getData("Text");
     </script>
 </body>
 
