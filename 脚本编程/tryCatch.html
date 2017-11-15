@@ -1,0 +1,156 @@
+<!-- 错误处理与调试 -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="EventUtil.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        $(function () {
+            // try {
+            //     // 可能会导致错误的代码
+            //     window.someNonexistentFunction();
+            // } catch (error) {
+            //     // 在错误发生时怎么处理
+            //     // console.log("An error happended!")
+            //     console.log(error.message)
+            // }
+
+            // // TryCatchExample02.html
+            // function testFinally() {
+            //     try {
+            //         return 2;
+            //     } catch (error) {
+            //         return 1
+            //     } finally {
+            //         return 0;
+            //     }
+            // }
+
+            // console.log(testFinally())
+            // try {
+
+            //     // new eval();
+            //     // eval = foo;
+            //     // var item1 = new Array(20);
+            //     // var item2 = new Array(Number.MAX_VALUE);
+            //     // var obj = x
+            //     // eval("a ++ b")
+
+            //     // var o = new 10;
+            //     // console.log('name' in true)
+            //     // Function.prototype.toString.call("name")
+            //     someFunction();
+            // } catch (error) {
+            //     // console.log(error)
+            //     if (error instanceof TypeError) {
+            //         //处理类型错误
+            //     } else if (error instanceof ReferenceError) {
+            //         // 处理引用错误
+            //     } else {
+            //         // 处理其他类型的错误
+            //     }
+            // }
+
+
+            // throw 1234;
+            // throw "Hello world";
+            // throw true;
+            // throw { name: "JaveScript" };
+
+            // throw new Error("Something bad happened")
+            // throw new SyntaxError("syntax")
+            // throw new RangeError("range")
+            // throw new EvalError("evaluate")
+            // throw new URIError("uri")
+            // throw new ReferenceError('reference')
+
+
+            // function CustomError(message) {
+            //     this.name = "CustomError";
+            //     this.message = message;
+            // }
+
+            // CustomError.prototype = new Error();
+
+            // throw new CustomError("my message")
+
+            // // ThrowingErrorsExample02.html
+            // function process(values) {
+            //     if (!(values instanceof Array)) {
+            //         throw new Error("process():argument must be an array")
+            //     }
+            //     values.sort();
+            //     for (var i = 0, len = values.length; i < len; i++) {
+            //         if (values[i] > 100) {
+            //             return values[i];
+            //         }
+            //     }
+            //     return -1;
+            // }
+            // console.log(process('asdf'))
+
+
+            // window.onerror = function (message, url, line) {
+            //     console.log(message);
+            //     return false
+            // }
+
+            // throw new Error('test')
+
+            // var image = new Image();
+            // EventUtil.addHandler(image, "load", function (event) {
+            //     console.log("Image loaded");
+            // })
+            // EventUtil.addHandler(image, "error", function (event) {
+            //     console.log("Image not loaded!")
+            //     return false
+            // })
+            // image.src = "bdasffdaidu.png"
+
+            // console.log(5 == "5", 5 === "5", 1 == true, 1 === true)
+
+
+            // function concat(str1, str2, str3) {
+            //     var result = str1 + str2;
+            //     // if (str3) {
+            //     if (typeof str3 == "string") {
+            //         result += str3;
+            //     }
+            //     return result;
+            // }
+
+            // function getQueryString(url) {
+            //     if (typeof url == "string") {
+            //         var pos = url.indexOf("?");
+            //         if (pos > -1) {
+            //             return url.substring(pos + 1);
+            //         }
+
+            //     }
+            //     return ""
+            // }
+
+            // getQueryString(1234)
+
+            function reverseSort(values) {
+                // if (values !=null) {
+                // if (typeof values.sort == "function") {
+                if (values instanceof Array) {
+                    values.sort();
+                    values.reverse();
+                }
+            }
+
+            reverseSort(true)
+        })
+    </script>
+</body>
+
+</html>
