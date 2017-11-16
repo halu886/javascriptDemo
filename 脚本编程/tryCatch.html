@@ -139,16 +139,85 @@
 
             // getQueryString(1234)
 
-            function reverseSort(values) {
-                // if (values !=null) {
-                // if (typeof values.sort == "function") {
-                if (values instanceof Array) {
-                    values.sort();
-                    values.reverse();
+            // function reverseSort(values) {
+            //     // if (values !=null) {
+            //     // if (typeof values.sort == "function") {
+            //     if (values instanceof Array) {
+            //         values.sort();
+            //         values.reverse();
+            //     }
+            // }
+
+            // reverseSort(true)
+
+            // function addQueryStringArg(url, name, value) {
+            //     if (url.indexOf("?") == -1) {
+            //         url += "?";
+            //     } else {
+            //         url += "&"
+            //     }
+
+            //     url += encodeURIComponent(name) + "=" + encodeURIComponent(value)
+            //     return url;
+            // }
+
+            // var url = "http://www.baidu.com";
+            // var newUrl = addQueryStringArg(url, 'redir', "http://asdfasfdafsd.asdfasdfasdf.asasdf")
+            // console.log(newUrl)
+
+            // function sum(num1, num2) {
+            //     log("Entering sum(),argument are" + num1 + "," + num2);
+
+            //     log("Entering sum()")
+
+            //     log("Before calculation");
+            //     var result = num1 + num2;
+            //     log("after caculation");
+            //     log("Exiting sum()")
+            //     return result
+            // }
+            // sum(1, 2)
+
+
+            // // consoleLoggingExample01.html
+            // function log(message) {
+            //     if (typeof console == "object") {
+            //         console.log(message)
+            //     } else if (typeof opera == "object") {
+            //         opera.postError(message)
+            //     } else if (typeof java == "object" && typeof java.lang == "object") {
+            //         java.lang.System.out.println(message);
+            //     }
+
+            // }
+
+            // // pageLoggingExample.htm
+            // function log(message) {
+            //     var console = document.getElementById("debugInfo");
+            //     if (console === null) {
+            //         console = document.createElement("div");
+            //         console.id = "debuginfo";
+            //         console.style.background = "#dedede";
+            //         console.style.border = "1px solid sliver";
+
+            //     }
+            //     console.innerHTML += "<p>" + message + "</p>"
+            // }
+
+            function divide(num1, num2) {
+                // if () {
+                //     throw new Error("divide(): Both arguments must  be numbers")
+                // }
+                assert(typeof num1 == "number" && typeof num2 == "number", "divide(): Both arguments must  be numbers")
+                return num1 / num2
+            }
+
+            function assert(condition, message) {
+                if (!condition) {
+                    throw new Error(message)
                 }
             }
 
-            reverseSort(true)
         })
     </script>
 </body>
