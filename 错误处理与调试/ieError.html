@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>The following code should cause The following code should cause</p>
+    <span id="mySpan"></span>
+    <div>
+        <script type="text/javascript">
+            // document.body.appendChild(document.createElement("div"))
+            // document.onclick = function () {
+            //     var event = window.event;
+            //     setTimeout(function () {
+            //         event.returnValue = false
+            //     }, 1000)
+            // }
+
+            // var span = document.getElementById('mySpan');
+            // span.innerHTML = "<div>Hi</div>"
+            // 系统无法找到指定资源
+            function createLongUrl(url) {
+                var s = "?";
+                for (var i = 0, len = 2500; i < len; i++) {
+                    s += "a";
+                }
+                return url + s;
+            }
+            var x = new XMLHttpRequest();
+            x.open("get", createLongUrl("http://www.baidu.com"))
+            x.send(null)
+        </script>
+    </div>
+</body>
+
+</html>
