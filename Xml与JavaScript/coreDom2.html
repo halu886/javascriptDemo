@@ -13,11 +13,74 @@
 <script>
     // var xmldom = document.implementation.createDocument(namespaceUri, root, doctype)
     // DomLevel2CoreExample.htm
-    var xmldom = document.implementation.createDocument("", "root", null)
-    // console
-    alert(xmldom.documentElement.tagName)
-    var child = xmldom.createElement('child');
-    xmldom.documentElement.appendChild(child);
+    // var xmldom = document.implementation.createDocument("", "root", null)
+    // // console
+    // alert(xmldom.documentElement.tagName)
+    // var child = xmldom.createElement('child');
+    // xmldom.documentElement.appendChild(child);
+
+    // // DOMParserExample01.html
+    // var parse = new DOMParser();
+    // var xmldom = parse.parseFromString("<root><child/></root>", "text/xml");
+    // console.log(xmldom.documentElement.tagName)
+    // console.log(xmldom.documentElement.firstChild.tagName);
+
+    // var anotherChild = xmldom.createElement("child");
+    // xmldom.documentElement.appendChild(anotherChild);
+
+    // var child = xmldom.getElementsByTagName("child");
+    // console.log(child.length)
+
+    // // DOMParserExample02.html
+    // var parse = new DOMParser();
+    // var xmldom;
+    // var errors;
+    // try {
+    //     xmldom = parser.parseFromString("<root>", "text/xml")
+    //     errors = xmldom.getElementsByTagName("parsererrors");
+    //     if (errors.length > 0) {
+    //         throw new Error("Parsing errors")
+    //     }
+    // } catch (ex) {
+    //     console.log("Parsing error!")
+    // }
+
+    // // XMLSerializerExample01.html
+    // var parse = new DOMParser();
+    // var xmldom = parse.parseFromString("<root><child/></root>", "text/xml");
+    // var serializer = new XMLSerializer();
+    // var xml = serializer.serializeToString(xmldom);
+    // console.log(xml);
+
+
+    // IEXMLDomExample01.html
+    function createDocument() {
+        if (typeof arguments.callee.activeXString != "string") {
+            var versions = ["MSXML2.DOMDocument.6.0", "MSXML2.DOMDocument.3.0",
+                "MSXML2.DOMDocument"];
+            var i;
+            var len;
+            for (i = 0, len = versions.length; i < len; i++) {
+                try {
+                    new ActiveXObject(versions[i]);
+                    arguments.callee.activeXString = versions[i];
+                    break;
+                } catch (ex) {
+
+                }
+            }
+        }
+        return new ActiveXObject(arguments.callee.activeXString);
+    }
+
+    var xmldom = createDocument();
+    xmldom.loadXML("<root><child/></root>");
+    console.log(xmldom.documentElement.tagName);
+    console.log(xmldom.documentElement.firstChild.tagName);
+    var anotherChild = xmldom.createElement("child");
+    xmldom.documentElement.appendChild(anotherChild);
+    var children = xmldom.getElementsByTagName("child");
+    console.log(children.length)
 </script>
 
 </html>
