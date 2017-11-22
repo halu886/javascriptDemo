@@ -53,7 +53,7 @@
     // console.log(xml);
 
 
-    // IEXMLDomExample01.html
+    // // IEXMLDomExample01.html
     function createDocument() {
         if (typeof arguments.callee.activeXString != "string") {
             var versions = ["MSXML2.DOMDocument.6.0", "MSXML2.DOMDocument.3.0",
@@ -73,14 +73,62 @@
         return new ActiveXObject(arguments.callee.activeXString);
     }
 
-    var xmldom = createDocument();
-    xmldom.loadXML("<root><child/></root>");
-    console.log(xmldom.documentElement.tagName);
-    console.log(xmldom.documentElement.firstChild.tagName);
-    var anotherChild = xmldom.createElement("child");
-    xmldom.documentElement.appendChild(anotherChild);
-    var children = xmldom.getElementsByTagName("child");
-    console.log(children.length)
+    // var xmldom = createDocument();
+    // // xmldom.loadXML("<root><child/></root>");
+    // // if (xmldom.parseError != 0) {
+    // // console.log("Parsing error occurred",xmldom.parseError.errorCode,xmldom.parseError.line,xmldom.parseError.linepos,xmldom.parseError)
+    // // }
+
+    // // var xmldo
+    // xmldom.async = true
+    // xmldom.onreadystatechange == function () {
+    //     if (xmldom.readyState == 4) {
+    //         // if (xmldom.parseError != 4) {
+    //         if (xmldom.parseError != 0) {
+    //             console.log('error')
+    //         } else {
+    //             console.log(xmldom.documentElement.tagName, xmldom.xml);
+    //             console.log(xmldom.documentElement.firstChild.tagName);
+    //             var anotherChild = xmldom.createElement("child");
+    //             xmldom.documentElement.appendChild(anotherChild);
+
+    //             var children = xmldom.getElementsByTagName("child");
+    //             console.log(children.length)
+
+    //         }
+    //     }
+    //     // }
+    // }
+    // xmldom.load("test.xml");
+
+
+    // CrossBrowserXmlExample01.html
+    function parseXml(xml) {
+        var xmldom = null;
+        if (typeof DOMParser != "undefined") {
+            xmldom = (new DOMParser()).parseFromString(xml, "text/xml");
+            var errors = xmldom.getElementsByTagName("parsererror");
+            if (errors.length) {
+                throw new Error("XML parsing error:" + error[0].textContent);
+            }
+        } else if (typeof ActiveXObject != "undefined") {
+            xmldom = createDocument();
+            xmldom.loadXML(xml);
+            if (xmldom.parseError != 0) {
+                throw new Error("XML parsing error:" + xmldom.parseError.reason);
+            }
+        } else {
+            throw new Error("No XML parser availiable")
+        }
+        return xmldom
+    }
+
+    var xmldom = null;
+    try {
+        xmldom = parseXml("<root><child/></root>");
+    } catch (ex) {
+        console.log(ex.message)
+    }
 </script>
 
 </html>
