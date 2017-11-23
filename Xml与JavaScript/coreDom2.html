@@ -53,25 +53,25 @@
     // console.log(xml);
 
 
-    // // IEXMLDomExample01.html
-    function createDocument() {
-        if (typeof arguments.callee.activeXString != "string") {
-            var versions = ["MSXML2.DOMDocument.6.0", "MSXML2.DOMDocument.3.0",
-                "MSXML2.DOMDocument"];
-            var i;
-            var len;
-            for (i = 0, len = versions.length; i < len; i++) {
-                try {
-                    new ActiveXObject(versions[i]);
-                    arguments.callee.activeXString = versions[i];
-                    break;
-                } catch (ex) {
+    // // // IEXMLDomExample01.html
+    // function createDocument() {
+    //     if (typeof arguments.callee.activeXString != "string") {
+    //         var versions = ["MSXML2.DOMDocument.6.0", "MSXML2.DOMDocument.3.0",
+    //             "MSXML2.DOMDocument"];
+    //         var i;
+    //         var len;
+    //         for (i = 0, len = versions.length; i < len; i++) {
+    //             try {
+    //                 new ActiveXObject(versions[i]);
+    //                 arguments.callee.activeXString = versions[i];
+    //                 break;
+    //             } catch (ex) {
 
-                }
-            }
-        }
-        return new ActiveXObject(arguments.callee.activeXString);
-    }
+    //             }
+    //         }
+    //     }
+    //     return new ActiveXObject(arguments.callee.activeXString);
+    // }
 
     // var xmldom = createDocument();
     // // xmldom.loadXML("<root><child/></root>");
@@ -102,7 +102,7 @@
     // xmldom.load("test.xml");
 
 
-    // CrossBrowserXmlExample01.html
+    // // // CrossBrowserXmlExample01.html
     function parseXml(xml) {
         var xmldom = null;
         if (typeof DOMParser != "undefined") {
@@ -123,12 +123,46 @@
         return xmldom
     }
 
+
+
+    function serializeXml(xmldom) {
+        if (typeof XMLSerializer != "undefined") {
+            return (new XMLDocument()).serializeToString(xmldom);
+        } else if (typeof xmldom.xml != "undefined") {
+            return xmldom.xml;
+        } else {
+            throw new Error("Could not serialize XML DOM.")
+        }
+    }
+
     var xmldom = null;
     try {
-        xmldom = parseXml("<root><child/></root>");
+        xmldom = parseXml("<root><child/><employee><name>'asdfasdfasdf'<a/><b/><c><d/></c></name></employee></root>");
+        console.log(xmldom)
     } catch (ex) {
         console.log(ex.message)
     }
+
+    // DOM3级XPath
+    var supportsXPath = document.implementation.hasFeature("XPath", "3.0");
+
+    var result = xmldom.evaluate("employee/name", xmldom.documentElement, null, XPathResult.STRING_TYPE, null);
+    // if (result !== null) {
+    //     for (var i = 0, len = result.snapshotLength; i < len; i++) {
+    //         console.log(result.snapshotItem(i).tagName);
+    //     }
+    // }
+    // if (result !== null) {
+    //     console.log(result.singleNodeValue.tagName)
+    // }
+    console.log(result.stringValue)
+    // if (result !== null) {
+    //     var node = result.iterateNext();
+    //     while (node) {
+    //         console.log(node.tagName);
+    //         node = node.iterateNext();
+    //     }
+    // }
 </script>
 
 </html>
