@@ -135,18 +135,39 @@
         }
     }
 
-    var xmldom = null;
-    try {
-        xmldom = parseXml("<root><child/><employee><name>'asdfasdfasdf'<a/><b/><c><d/></c></name></employee></root>");
-        console.log(xmldom)
-    } catch (ex) {
-        console.log(ex.message)
-    }
+    //     var xmldom = null;
+    //     try {
+    //         xmldom = parseXml(`<?xml version="1.0" ?>
+    //         <wrox:books xmlns:wrox="http://www.wrox.com/">
+    //     <wrox:book>
+    //         <wrox:title>Professional JavaaScript asfdasdfadsf</wrox:title>
+    //         <wrox:author>Nichola C</wrox:author>
+    //     </wrox:book>
+    //     <wrox:book>
+    //         <wrox:title>Professional JavaaScript asfdasdfadsf</wrox:title>
+    //         <wrox:author>Nichola C</wrox:author>
+    //     </wrox:book>
+    // </wrox:books>`);
+    //         console.log(xmldom)
+    //     } catch (ex) {
+    //         console.log(ex.message)
+    //     }
 
     // DOM3级XPath
-    var supportsXPath = document.implementation.hasFeature("XPath", "3.0");
+    // var supportsXPath = document.implementation.hasFeature("XPath", "3.0");
 
-    var result = xmldom.evaluate("employee/name", xmldom.documentElement, null, XPathResult.STRING_TYPE, null);
+    // var nsresolver = xmldom.createNSResolver(xmldom.documentElement);
+
+    // var nsresolver = function (prefix) {
+    //     switch (prefix) {
+    //         case "wrox": return "http://www.wrox.com";
+    //     }
+    // }
+
+    // var result = xmldom.evaluate("count(wrox:book/work:author)",
+    //     xmldom.documentElement, nsresolver, XPathResult.NUMBER_TYPE, null)
+    // console.log(result.numberValue);
+    // var result = xmldom.evaluate("wrox:book/wrox:author", xmldom.documentElement, nsresolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     // if (result !== null) {
     //     for (var i = 0, len = result.snapshotLength; i < len; i++) {
     //         console.log(result.snapshotItem(i).tagName);
@@ -155,7 +176,7 @@
     // if (result !== null) {
     //     console.log(result.singleNodeValue.tagName)
     // }
-    console.log(result.stringValue)
+    // console.log(result.snapshotLength)
     // if (result !== null) {
     //     var node = result.iterateNext();
     //     while (node) {
@@ -163,6 +184,15 @@
     //         node = node.iterateNext();
     //     }
     // }
+
+
+    // IEXPathExample01.html
+    var xmldom = parseXml("<test><employee><name></name></employee></test>")
+    var element = xmldom.documentElement.selectSingleNode('employee/name');
+
+    if (element !== null) {
+        console.log(element.xml)
+    }
 </script>
 
 </html>

@@ -1,1 +1,11 @@
-<root><child/></root>
+<?xml version="1.0"? >
+<wrox:books xmlns:wrox="http://www.wrox.com/">
+    <wrox:book>
+        <wrox:title>Professional JavaaScript asfdasdfadsf</wrox:title>
+        <wrox:author>Nichola C</wrox:author>
+    </wrox:book>
+    <wrox:book>
+        <wrox:title>Professional JavaaScript asfdasdfadsf</wrox:title>
+        <wrox:author>Nichola C</wrox:author>
+    </wrox:book>
+</wrox:books>
