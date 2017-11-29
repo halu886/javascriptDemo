@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function parseXml(xml) {
+            var xmldom = null;
+            if (typeof DOMParser != "undefined") {
+                xmldom = (new DOMParser()).parseFromString(xml, "text/xml");
+                var errors = xmldom.getElementsByTagName("parsererror");
+                if (errors.length) {
+                    throw new Error("XML parsing error:" + error[0].textContent);
+                }
+            } else if (typeof ActiveXObject != "undefined") {
+                xmldom = createDocument();
+                xmldom.loadXML(xml);
+                if (xmldom.parseError != 0) {
+                    throw new Error("XML parsing error:" + xmldom.parseError.reason);
+                }
+            } else {
+                throw new Error("No XML parser availiable")
+            }
+            return xmldom
+        }
+
+        var xmldom = parseXml("<test><employee><name></name></employee></test>")
+        var element = xmldom.documentElement.selectSingleNode('employee/name');
+
+        if (element !== null) {
+            console.log(element.xml)
+        }
+    </script>
+</body>
+
+</html>

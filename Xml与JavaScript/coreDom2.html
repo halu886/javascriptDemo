@@ -54,24 +54,24 @@
 
 
     // // // IEXMLDomExample01.html
-    // function createDocument() {
-    //     if (typeof arguments.callee.activeXString != "string") {
-    //         var versions = ["MSXML2.DOMDocument.6.0", "MSXML2.DOMDocument.3.0",
-    //             "MSXML2.DOMDocument"];
-    //         var i;
-    //         var len;
-    //         for (i = 0, len = versions.length; i < len; i++) {
-    //             try {
-    //                 new ActiveXObject(versions[i]);
-    //                 arguments.callee.activeXString = versions[i];
-    //                 break;
-    //             } catch (ex) {
+    function createDocument() {
+        if (typeof arguments.callee.activeXString != "string") {
+            var versions = ["MSXML2.DOMDocument.6.0", "MSXML2.DOMDocument.3.0",
+                "MSXML2.DOMDocument"];
+            var i;
+            var len;
+            for (i = 0, len = versions.length; i < len; i++) {
+                try {
+                    new ActiveXObject(versions[i]);
+                    arguments.callee.activeXString = versions[i];
+                    break;
+                } catch (ex) {
 
-    //             }
-    //         }
-    //     }
-    //     return new ActiveXObject(arguments.callee.activeXString);
-    // }
+                }
+            }
+        }
+        return new ActiveXObject(arguments.callee.activeXString);
+    }
 
     // var xmldom = createDocument();
     // // xmldom.loadXML("<root><child/></root>");
@@ -187,12 +187,56 @@
 
 
     // IEXPathExample01.html
-    var xmldom = parseXml("<test><employee><name></name></employee></test>")
-    var element = xmldom.documentElement.selectSingleNode('employee/name');
+    // var xmldom = parseXml("<test><employee><name></name></employee></test>")
+    // var element = xmldom.documentElement.selectSingleNode('employee/name');
 
-    if (element !== null) {
-        console.log(element.xml)
+    // if (element !== null) {
+    //     console.log(element.xml)
+    // }
+
+    function selectSingleNode(context, expression, namespaces) {
+        var doc = (context.nodeType != 9 ? context.ownerDocument : context);
+        if (typeof doc.evaluate != "undefined") {
+            var nsresolver = null;
+            if (namespaces instanceof Object) {
+                nsresolver = function (prefix) {
+                    return namespaces[prefix];
+                }
+            }
+            var result = doc.evaluate(expression, context, nsresolver,
+                XPathEvaluator.FIRST_ORDERED_NODE_TYPE, null)
+            return (result !== null ? result.singleNodeValue : null);
+        } else if (typeof context.selectSingleNode != 'undefined') {
+            if (namespaces instanceof Object) {
+                var ns = "";
+                for (var prefix in namespaces) {
+                    if (namespaces.hasOwnProperty(prefix)) {
+                        ns += "xmlns:" + prefix + "='" + namespaces[prefix] + "'=";
+                    }
+                }
+                doc.setProperty("SelectionNamespaces", ns)
+            }
+            return context.selectSingleNode(expression);
+        } else {
+            throw new Error("No XPath enging found")
+        }
     }
+
+    // var result = selectSingleNode(xmldom.documentElement, "wrox:book/wrox:author",
+    //     { wrox: "http://www.wrox.com/" })
+    // console.log(serializeXml(result))
+
+    // var xsltdom = parseXml("<test></test>")
+    var xsltdom = createDocument();
+    var xmldom = createDocument()
+
+
+    xmldom.loadXML("<test><employee><name></name></employee></test>")
+    xsltdom.load("employee.xslt")
+    var element = xmldom.documentElement.selectSingleNode('employee/name')
+    // var result = xmldom.transformNode(xsltdom)
+    console.log(element)
+
 </script>
 
 </html>
