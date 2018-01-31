@@ -86,8 +86,8 @@ var EventUtil = {
 
 var handler = {
     message: "Event handled",
-    handleClick: function (event) {
-        console.log(this.message)
+    handleClick: function (name, event) {
+        console.log(this.message + ":" + name + ":" + event.type)
     }
 }
 
@@ -95,4 +95,36 @@ var handler = {
 var btn = document.getElementById("my-btn");
 
 
-EventUtil.addHandler(btn, "click", function (event) { handler.handleClick(event) });
+// EventUtil.addHandler(btn, "click", function (event) { handler.handleClick(event) });
+
+// function bind(fn, context) {
+//     return function () {
+//         return fn.apply(context, arguments);
+//     }
+// }
+
+// EventUtil.addHandler(btn, "click", bind(handler.handleClick, handler));
+// EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler))
+
+function add(num1, num2) {
+    return num1 + num2;
+}
+
+// function curriedAdd(num2) {
+//     return add(5, num2);
+// }
+
+function bind(fn, context) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    return function () {
+        var innerArgs = Array.prototype.slice.call(arguments);
+        var finalArgs = args.concat(innerArgs);
+        return fn.apply(context, finalArgs);
+    }
+}
+
+var curriedAdd = bind(add, 5);
+console.log(curriedAdd(3));
+
+// EventUtil.addHandler(btn, "click", bind(handler.handleClick, handler, "my-btn"))
+EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler, "my-btn"))
