@@ -14,18 +14,18 @@ EventTarget.prototype = {
         if (!event.target) {
             event.target = this;
         }
-        if (ths.handlers[event.type] instanceof Array) {
+        if (this.handlers[event.type] instanceof Array) {
             var handlers = this.handlers[event.type];
             for (var i = 0, len = handlers.length; i < len; i++) {
                 handlers[i](event);
             }
         }
     },
-    removeHandler: function (type, handlers) {
+    removeHandler: function (type, handler) {
         if (this.handlers[type] instanceof Array) {
             var handlers = this.handlers[type];
             for (var i = 0, len = handlers.length; i < len; i++) {
-                if (handlers[i] === handlers) {
+                if (handlers[i] === handler) {
                     break;
                 }
             }
@@ -35,12 +35,44 @@ EventTarget.prototype = {
 }
 
 
-function handleMessage (event) {
-    alert("Message reveived: " + event.message);
+// function handleMessage (event) {
+//     alert("Message reveived: " + event.message);
+// }
+
+// var target = new EventTarget();
+// target.addHandler("message", handleMessage);
+// target.fire({ type: "message", message: "Hello world!" });
+// target.removeHandler("message", handleMessage);
+// target.fire({ type: "message", message: "Hello world!" });
+
+function Person (name, age) {
+    EventTarget.call(this);
+    this.name = name;
+    this.age = age;
 }
 
-var target = new EventTarget();
-target.addEventListener("message", handleMessage);
-target.fire({ type: "message", message: "Hello world!" });
-target.removeEventListener({ "message": handleMessage });
-target.fire({ type: "message", message: "Hello world!" });
+function object (o) {
+    function F () { }
+    F.prototype = o;
+    return new F();
+}
+
+function inheritPrototype (subType, superType) {
+    var prototype = object(superType.prototype);
+    prototype.constructor = subType;
+    subType.prototype = prototype;
+}
+
+inheritPrototype(Person, EventTarget);
+Person.prototype.say = function (message) {
+    this.fire({ type: "message", message: message });
+}
+
+function handleMessage (event) {
+    alert(event.target.name + "says: " + event.message);
+}
+
+var person = new Person("halu", 29);
+
+person.addHandler("message", handleMessage);
+person.say("Hi there");
