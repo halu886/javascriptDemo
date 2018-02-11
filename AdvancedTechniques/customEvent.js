@@ -124,8 +124,6 @@ var EventUtil = {
     }
 };
 
-
-
 var DragDrop = function () {
     var dragdrop = new EventTarget(),
         dragging = null,
